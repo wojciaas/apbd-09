@@ -6,4 +6,6 @@ public interface IClientRepository
 {
     Task RemoveClientAsync(Client client);
     Task<Client?> GetClientAsync(int id);
+    Task<Client?> GetClientByPeselAsync(string pesel);
+    Task AddClientAsync(Client client);
 }

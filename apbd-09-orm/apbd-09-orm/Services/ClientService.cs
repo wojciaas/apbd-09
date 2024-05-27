@@ -36,4 +36,14 @@ public class ClientService : IClientService
             throw new DomainException("Cannot remove client with assigned trips.");
         }
     }
+
+    public async Task<Client?> GetClientByPeselAsync(string pesel)
+    {
+        return await _clientRepository.GetClientByPeselAsync(pesel);
+    }
+    
+    public async Task AddClientAsync(Client client)
+    {
+        await _clientRepository.AddClientAsync(client);
+    }
 }

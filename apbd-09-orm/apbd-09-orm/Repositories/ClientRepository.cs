@@ -25,4 +25,15 @@ public class ClientRepository : IClientRepository
         return await _context.Clients.Include(c => c.ClientTrips)
                                         .FirstOrDefaultAsync(c => c.IdClient == id);;
     }
+    
+    public async Task<Client?> GetClientByPeselAsync(string pesel)
+    {
+        return await _context.Clients.FirstOrDefaultAsync(c => c.Pesel == pesel);
+    }   
+    
+    public async Task AddClientAsync(Client client)
+    {
+        await _context.Clients.AddAsync(client);
+        await _context.SaveChangesAsync();
+    }
 }

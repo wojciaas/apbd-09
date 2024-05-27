@@ -1,4 +1,5 @@
 using apbd_09_orm.Context;
+using apbd_09_orm.Entities;
 using apbd_09_orm.ResponseModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,5 +39,23 @@ public class TripRepository : ITripRepository
     public async Task<int> GetTripsCountAsync()
     {
         return await _context.Trips.CountAsync();
+    }
+    
+    public async Task<Trip?> GetTripAsync(int id)
+    {
+        return await _context.Trips
+            .FirstOrDefaultAsync(t => t.IdTrip == id);
+    }
+    
+    public async Task AssignClientToTripAsync(Client client, Trip trip, DateTime? paymentDate)
+    {
+        await _context.ClientTrips.AddAsync(new ClientTrip()
+        {
+            IdClient = client.IdClient,
+            IdTrip = trip.IdTrip,
+            PaymentDate = paymentDate,
+            RegisteredAt = DateTime.Now
+        });
+        await _context.SaveChangesAsync();
     }
 }
