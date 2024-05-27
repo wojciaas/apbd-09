@@ -24,7 +24,7 @@ public class TripService : ITripService
             {
                 pageNum,
                 pageSize,
-                allPages = tripsCount,
+                allPages = tripsCount / pageSize,
                 trips = await _tripRepository.GetTripsAsync(pageNum, pageSize)
             }
         };

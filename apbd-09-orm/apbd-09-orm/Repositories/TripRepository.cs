@@ -17,9 +17,9 @@ public class TripRepository : ITripRepository
     public async Task<IEnumerable<ResponseTripDTO>> GetTripsAsync(int pageNum = 1, int pageSize = 10)
     {
         return await _context.Trips
+            .OrderByDescending(t => t.DateFrom)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize)
-            .OrderByDescending(t => t.DateFrom)
             .Select(t => new ResponseTripDTO(
                 t.Name,
                 t.Description,
